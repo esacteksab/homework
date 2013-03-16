@@ -135,8 +135,9 @@ running watcher.py
 
     (venv)➜  foo  python loop2.py
     Wrote: /tmp/foo3
-    you touched my file!
+    you touched my file! I'm going to Salt you!
     Wrote: /tmp/foo-new
+
 
 
 touching a file (this is comparable to uploading a file). Moving this to .backup or .tar'ing this for backup (prior to

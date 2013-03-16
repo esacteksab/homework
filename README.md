@@ -115,3 +115,31 @@ after:
 
     backend servers
         #server salt-minion 127.0.0.1:8000 maxconn 32
+        
+        
+watcher.py would likely be managed by supervisord (or uWSGI) for process management. 
+
+It uses pyinotify https://github.com/seb-m/pyinotify
+
+it checks on 
+
+    IN_CLOSE_WRITE
+    Writtable file was closed. 
+    http://seb-m.github.com/pyinotify/pyinotify.EventsCodes-class.html
+    
+My belief, rather than IN_CREATE, this ensures the file is done writing (not locked). 
+Based on the file that we're using/managing, you can do whatever you want (based on where it is ran). 
+Like `check-status.py` above, you could do a subprocess.call on a salt or salt-call (maybe even agaist Salt-API)
+
+running watcher.py
+
+    (venv)➜  foo  python loop2.py
+    Wrote: /tmp/foo3
+    you touched my file!
+    Wrote: /tmp/foo-new
+
+
+touching a file (this is comparable to uploading a file). Moving this to .backup or .tar'ing this for backup (prior to
+deployment would not cause `pyinotify` to flag this and initiate anything. 
+
+    ➜  foo  touch /tmp/foo3

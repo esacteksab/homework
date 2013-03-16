@@ -11,7 +11,7 @@ class EventHandler(pyinotify.ProcessEvent):
         print "Wrote:", event.pathname
         if event.pathname == '/tmp/foo3':
             copy2('/tmp/foo3', '/tmp/foo-new')
-            print 'you touched my file!'
+            print "you touched my file! I'm going to Salt you!"
 
 handler = EventHandler()
 notifier = pyinotify.Notifier(wm, handler)

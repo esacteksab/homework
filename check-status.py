@@ -1,7 +1,7 @@
 import time
 from subprocess import call
 import socket
-import requests
+import urllib
 
 start_time = time.time()
 HOSTNAME = socket.gethostname()
@@ -11,8 +11,8 @@ def getStatus():
     while 1 == 1:
 
         elapsed_time = time.time() - start_time
-        r = requests.get('http://localhost:8000')
-        if int(elapsed_time) > 20 and r.status_code == 503:
+        r = urllib.urlopen('http://localhost:8000')
+        if int(elapsed_time) > 20 and r.getcode() == 503:
             call(['salt-call', 'file.comment', '/tmp/haproxy.conf',
                  'server\ {0}\ '.format(HOSTNAME)])
             call(['salt-call', 'service.reload', 'haproxy'])
@@ -22,7 +22,7 @@ def getStatus():
         #     print 'fail'
         #     print elapsed_time
         else:
-            print r.status_code
+            print r.getcode()
         time.sleep(2)
 
 

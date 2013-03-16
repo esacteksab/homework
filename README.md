@@ -125,7 +125,8 @@ it checks on
 
     IN_CLOSE_WRITE
     Writtable file was closed. 
-    http://seb-m.github.com/pyinotify/pyinotify.EventsCodes-class.html
+    
+http://seb-m.github.com/pyinotify/pyinotify.EventsCodes-class.html
     
 My belief, rather than IN_CREATE, this ensures the file is done writing (not locked). 
 Based on the file that we're using/managing, you can do whatever you want (based on where it is ran). 

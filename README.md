@@ -3,9 +3,11 @@ homework
 
 
 Checks for HTTP 503.  If HTTP 503 exists for > 30 seconds, it runs 
+
     salt-call file.comment /tmp/haproxy.conf server\ $HOSTNAME\ 
 
 and then runs
+
     salt-call service.reload haproxy
     
 What the above does is comments out the hostname behind haproxy and reloads (not restarts) haproxy to ensure that $HOSTNAME

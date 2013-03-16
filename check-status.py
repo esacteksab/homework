@@ -18,9 +18,7 @@ def getStatus():
             call(['salt-call', 'service.reload', 'haproxy'])
             print "Now you fix it!"
             break
-        # elif int(elapsed_time) < 30 and r.status_code == 503:
-        #     print 'fail'
-        #     print elapsed_time
+
         else:
             print r.getcode()
         time.sleep(2)

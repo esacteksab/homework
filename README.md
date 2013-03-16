@@ -145,3 +145,29 @@ touching a file (this is comparable to uploading a file). Moving this to .backup
 deployment would not cause `pyinotify` to flag this and initiate anything. 
 
     ➜  foo  touch /tmp/foo3
+    
+
+Deploying & Restoring
+---------------------
+
+I feel I don't know enough about the environment. I could tar a directory like so:
+
+    def backup_web():
+        """ Backup a specified directory/project """
+        tar = tarfile.open("/tmp/%s-%s-web-bkup.tar.bz2" % (date, project), "w:bz2")
+        tar.add("/usr/share/nginx/%s" % (project))
+        tar.close()
+        
+    def backup_db():
+        """ backup a specified database """
+        local("su postgres -c '/usr/bin/pg_dump -Fc %sdb > /opt/pg/bkup/%sdb-%s.dump'" % (project, project, date))
+
+
+Then on failure, rm -rf /usr/share/nginx/$PROJECT, DROP DB, then extract previously made tar in it's place 
+and `pg_restore` the `pg_dump`. 
+
+If the deployment was in a `.deb` or `.rpm` you could leveage Salt and remove newest package and reinstall the old pkg
+version. If you're just dropping a `.war` file, drop the old `.war` file. 
+
+
+

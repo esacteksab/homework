@@ -9,7 +9,7 @@ def elapsed_time(_since=time()):
 
 class SillyHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
     def do_GET(self):
-        if elapsed_time() < 30:
+        if elapsed_time() < 45:
             self.send_error(503)
         else:
             self.send_response(200)
